@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_starter/InternalGrid.dart';
 
 class Externalgrid extends StatelessWidget {
   const Externalgrid({Key? key, required this.boxSize}) : super(key: key);
@@ -17,6 +18,7 @@ class Externalgrid extends StatelessWidget {
             height: boxSize,
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent)),
+            child: Internalgrid(blocRow: blocRow, blocCol: blocCol),
           );
         })
     );
