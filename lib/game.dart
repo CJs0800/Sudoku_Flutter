@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_starter/ExternalGrid.dart';
 
 class Game extends StatefulWidget {
   const Game({Key? key, required this.title}) : super(key: key);
@@ -29,6 +30,18 @@ class _GameState extends State<Game> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+            width: boxSize*3,
+              height: boxSize*3,
+              child: Externalgrid(boxSize: boxSize),
+            )
+          ],
+        )
+      )
     );
   }
 }
