@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+
+class Game extends StatefulWidget {
+  const Game({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  State<Game> createState() => _GameState();
+}
+
+class _GameState extends State<Game> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height / 2;
+    var width = MediaQuery.of(context).size.width;
+    var maxSize = height > width ? width : height;
+    var boxSize = (maxSize / 3).ceil().toDouble();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+    );
+  }
+}
