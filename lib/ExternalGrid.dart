@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:sudoku_starter/InternalGrid.dart';
 
 class Externalgrid extends StatelessWidget {
-  const Externalgrid({Key? key, required this.boxSize, required this.puzzle}) : super(key: key);
+  const Externalgrid({
+    Key? key,
+    required this.boxSize,
+    required this.puzzle,
+    required this.selectedRow,
+    required this.selectedCol,
+    required this.onCellTap
+  }) : super(key: key);
 
   final boxSize;
   final puzzle;
+  final selectedRow;
+  final selectedCol;
+  final onCellTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +28,14 @@ class Externalgrid extends StatelessWidget {
             width: boxSize,
             height: boxSize,
             decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-            child: Internalgrid(blocRow: blocRow, blocCol: blocCol, puzzle: puzzle),
+            child: Internalgrid(
+              blocRow: blocRow,
+              blocCol: blocCol,
+              puzzle: puzzle,
+              selectedRow: selectedRow,
+              selectedCol: selectedCol,
+              onCellTap: onCellTap
+            ),
           );
         })
     );
