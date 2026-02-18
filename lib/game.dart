@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_api/sudoku_api.dart';
 import 'package:sudoku_starter/ExternalGrid.dart';
 
 class Game extends StatefulWidget {
@@ -12,10 +13,26 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   int _counter = 0;
+  Puzzle? puzzle;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    generatePuzzle();
+  }
+
+  Future<void> generatePuzzle() async{
+    PuzzleOptions puzzleOptions = new PuzzleOptions(patternName: "winter");
+    Puzzle puzzle = new Puzzle(puzzleOptions);
+    await puzzle.generate();
+    setState(() {
+      this.puzzle = puzzle;
     });
   }
 
@@ -35,9 +52,9 @@ class _GameState extends State<Game> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-            width: boxSize*3,
+              width: boxSize*3,
               height: boxSize*3,
-              child: Externalgrid(boxSize: boxSize),
+              child: Externalgrid(boxSize: boxSize, puzzle: puzzle),
             )
           ],
         )
