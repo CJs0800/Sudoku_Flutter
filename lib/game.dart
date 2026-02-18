@@ -14,6 +14,8 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int _counter = 0;
   Puzzle? puzzle;
+  int? selectedRow;
+  int? selectedCol;
 
   void _incrementCounter() {
     setState(() {
@@ -54,7 +56,18 @@ class _GameState extends State<Game> {
             SizedBox(
               width: boxSize*3,
               height: boxSize*3,
-              child: Externalgrid(boxSize: boxSize, puzzle: puzzle),
+              child: Externalgrid(
+                boxSize: boxSize,
+                puzzle: puzzle,
+                selectedRow: selectedRow,
+                selectedCol: selectedCol,
+                onCellTap: (row, col) {
+                  setState(() {
+                    selectedRow = row;
+                    selectedCol = col;
+                  });
+                },
+              ),
             )
           ],
         )
