@@ -1,6 +1,9 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 import 'package:sudoku_starter/ExternalGrid.dart';
+import 'package:sudoku_starter/ButtonGrid.dart';
+
 
 class Game extends StatefulWidget {
   const Game({Key? key, required this.title}) : super(key: key);
@@ -68,6 +71,23 @@ class _GameState extends State<Game> {
                   });
                 },
               ),
+            ),
+            SizedBox(height: boxSize*0.15),
+            SizedBox(
+              width: boxSize*3,
+              height: boxSize,
+              child: Buttongrid(
+                boxSize: boxSize,
+                selectedRow: selectedRow,
+                selectedCol: selectedCol,
+                onButtonPressed: (buttonNumber) {
+                  setState(() {
+                    Point point = Point(selectedRow!, selectedCol!);
+                    Position position = Position(row: selectedRow!, column: selectedCol!);
+                    position.grid = point;
+                    puzzle?.board()!.cellAt(position).setValue(buttonNumber);
+                  });
+                }),
             )
           ],
         )
