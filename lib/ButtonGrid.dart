@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class Buttongrid extends StatelessWidget {
   const Buttongrid({
     Key? key,
+    required this.puzzle,
     required this.boxSize,
     required this.selectedRow,
     required this.selectedCol,
     required this.onButtonPressed,
   }) : super(key:key);
 
+  final puzzle;
   final boxSize;
   final selectedRow;
   final selectedCol;
@@ -22,7 +24,7 @@ class Buttongrid extends StatelessWidget {
       crossAxisSpacing: boxSize~/6,
       childAspectRatio: 1.5,
       children: List.generate(10, (buttonIndex) {
-        bool isEnable = selectedRow != null && selectedCol != null;
+        bool isEnable = selectedRow != null && selectedCol != null && !puzzle?.board()?.matrix()?[selectedRow][selectedCol].prefill();
         final ButtonStyle style = ElevatedButton.styleFrom(alignment: Alignment.center);
         return ElevatedButton(
           onPressed: isEnable ? () { onButtonPressed(buttonIndex==9 ? 0 : buttonIndex+1); } : null,
