@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = (MediaQuery.of(context).size.width/ 3).ceil().toDouble();
+    var width = (MediaQuery.of(context).size.width/ 2).ceil().toDouble();
     var height = (MediaQuery.of(context).size.height / 2).ceil().toDouble();
 
     return Scaffold(
