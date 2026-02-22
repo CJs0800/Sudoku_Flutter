@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 import 'package:sudoku_starter/ExternalGrid.dart';
@@ -39,6 +40,24 @@ class _GameState extends State<Game> {
     setState(() {
       this.puzzle = puzzle;
     });
+  }
+
+  void generateValidationCheck(buttonNumber) {
+    bool isValid = buttonNumber == puzzle?.solvedBoard()?.matrix()?[selectedRow!][selectedCol!].getValue();
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      duration: const Duration(seconds: 1),
+      content: AwesomeSnackbarContent(
+        title: isValid ? 'Good!' : 'Bad number',
+        message: '',
+        contentType: isValid ? ContentType.success : ContentType.failure,
+      ),
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 
   @override
@@ -86,6 +105,7 @@ class _GameState extends State<Game> {
                     Position position = Position(row: selectedRow!, column: selectedCol!);
                     position.grid = point;
                     puzzle?.board()!.cellAt(position).setValue(buttonNumber);
+                    generateValidationCheck(buttonNumber);
                   });
                 }),
             )
