@@ -20,8 +20,8 @@ class Buttongrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 5,
-      mainAxisSpacing: boxSize~/9,
-      crossAxisSpacing: boxSize~/6,
+      mainAxisSpacing: boxSize/9,
+      crossAxisSpacing: boxSize/6,
       childAspectRatio: 1.5,
       children: List.generate(10, (buttonIndex) {
         bool isEnable = selectedRow != null && selectedCol != null && !puzzle?.board()?.matrix()?[selectedRow][selectedCol].prefill();
