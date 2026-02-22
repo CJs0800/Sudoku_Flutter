@@ -43,22 +43,39 @@ class _GameState extends State<Game> {
     });
   }
 
+  bool isSudokuComplete() {
+    final board = puzzle?.board()?.matrix();
+    final solution = puzzle?.solvedBoard()?.matrix();
+    for (int r = 0; r < 9; r++) {
+      for (int c = 0; c < 9; c++) {
+        if (board![r][c].getValue() != solution![r][c].getValue()) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   void generateValidationCheck(buttonNumber) {
-    bool isValid = buttonNumber == puzzle?.solvedBoard()?.matrix()?[selectedRow!][selectedCol!].getValue();
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      duration: const Duration(seconds: 1),
-      content: AwesomeSnackbarContent(
-        title: isValid ? 'Good!' : 'Bad number',
-        message: '',
-        contentType: isValid ? ContentType.success : ContentType.failure,
-      ),
-    );
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
+    if (isSudokuComplete()){
+      context.go("/victory");
+    } else {
+      bool isValid = buttonNumber == puzzle?.solvedBoard()?.matrix()?[selectedRow!][selectedCol!].getValue();
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        duration: const Duration(seconds: 1),
+        content: AwesomeSnackbarContent(
+          title: isValid ? 'Good!' : 'Bad number',
+          message: '',
+          contentType: isValid ? ContentType.success : ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
+    }
   }
 
   @override
