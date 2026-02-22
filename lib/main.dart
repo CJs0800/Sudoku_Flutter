@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sudoku_starter/HomePage.dart';
 import 'package:sudoku_starter/game.dart';
 
+import 'VictoryPage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,6 +22,10 @@ final GoRouter _router = GoRouter(
       builder: (context, state) {
         return const Game(title: "Sudoku-Flutter");
       },
+    ),
+    GoRoute(
+      path: '/victory',
+      builder: (context, state) => const VictoryPage(),
     ),
   ]
 );
