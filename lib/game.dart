@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sudoku_api/sudoku_api.dart';
 import 'package:sudoku_starter/ExternalGrid.dart';
 import 'package:sudoku_starter/ButtonGrid.dart';
@@ -73,8 +74,40 @@ class _GameState extends State<Game> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              width: boxSize*3,
+              height: boxSize/3,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: boxSize,
+                    height: boxSize/3,
+                    child: TextButton(
+                      onPressed: () {
+                        context.go("/");
+                      },
+                      child: Text(
+                        "Abandonner",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: boxSize/2),
             SizedBox(
               width: boxSize*3,
               height: boxSize*3,
