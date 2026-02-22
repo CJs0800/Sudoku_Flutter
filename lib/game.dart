@@ -96,6 +96,7 @@ class _GameState extends State<Game> {
               width: boxSize*3,
               height: boxSize,
               child: Buttongrid(
+                puzzle: puzzle,
                 boxSize: boxSize,
                 selectedRow: selectedRow,
                 selectedCol: selectedCol,
