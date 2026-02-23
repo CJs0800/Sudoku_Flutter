@@ -56,28 +56,6 @@ class _GameState extends State<Game> {
     return true;
   }
 
-  void generateValidationCheck(buttonNumber) {
-    if (isSudokuComplete()){
-      context.go("/victory");
-    } else {
-      bool isValid = buttonNumber == puzzle?.solvedBoard()?.matrix()?[selectedRow!][selectedCol!].getValue();
-      final snackBar = SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        duration: const Duration(seconds: 1),
-        content: AwesomeSnackbarContent(
-          title: isValid ? 'Good!' : 'Bad number',
-          message: '',
-          contentType: isValid ? ContentType.success : ContentType.failure,
-        ),
-      );
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(snackBar);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height / 2;
@@ -156,7 +134,9 @@ class _GameState extends State<Game> {
                     Position position = Position(row: selectedRow!, column: selectedCol!);
                     position.grid = point;
                     puzzle?.board()!.cellAt(position).setValue(buttonNumber);
-                    generateValidationCheck(buttonNumber);
+                    if (isSudokuComplete()){
+                      context.go("/victory");
+                    }
                   });
                 }),
             )
