@@ -29,20 +29,47 @@ class Internalgrid extends StatelessWidget{
         Cell cell = puzzle?.board()?.matrix()?[globalRow][globalCol];
         int val = cell.getValue() ?? 0;
         bool isGiven = cell.prefill()!;
-        MaterialColor textColor = cell.getValue() == puzzle?.solvedBoard()?.matrix()?[globalRow][globalCol]?.getValue() ? Colors.green : Colors.red;
         bool isSelected = selectedCol == globalCol && selectedRow == globalRow;
+        bool isNumberSelected;
+        if (selectedRow != null && selectedCol != null && puzzle?.board()?.matrix()?[selectedRow][selectedCol] != null){
+          if (puzzle?.board()?.matrix()?[selectedRow][selectedCol]?.getValue() == 0){
+            isNumberSelected = false;
+          } else {
+            isNumberSelected = puzzle?.board()?.matrix()?[selectedRow][selectedCol]?.getValue() == val;
+          }
+        } else {
+          isNumberSelected = false;
+        }
+        Color boxColor;
+        if (isSelected){
+          boxColor = Colors.blueAccent.shade100.withAlpha(100);
+        } else if (isNumberSelected){
+          boxColor = Colors.blueAccent.shade100.withAlpha(40);
+        } else if (isGiven) {
+          boxColor = Colors.grey.shade300;
+        } else {
+          boxColor = Colors.transparent;
+        }
+        Color textColors;
+        if (isGiven) {
+          textColors = Colors.black;
+        } else if (cell.getValue() == puzzle?.solvedBoard()?.matrix()?[globalRow][globalCol]?.getValue()){
+          textColors = Colors.green;
+        } else {
+          textColors = Colors.red;
+        }
 
         return InkWell(
           onTap: () { onCellTap(globalRow, globalCol); },
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black, width: 0.3),
-              color: isSelected ? Colors.blueAccent.shade100.withAlpha(100) : Colors.transparent
+              color: boxColor
             ),
             child: Center(
               child: Text(
                 val == 0 ? '' : val.toString(),
-                style: TextStyle(color: isGiven ? Colors.black : textColor)
+                style: TextStyle(color: textColors)
               )
             ),
           ),
