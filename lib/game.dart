@@ -35,7 +35,7 @@ class _GameState extends State<Game> {
   }
 
   Future<void> generatePuzzle() async{
-    PuzzleOptions puzzleOptions = new PuzzleOptions(patternName: "winter");
+    PuzzleOptions puzzleOptions = new PuzzleOptions();
     Puzzle puzzle = new Puzzle(puzzleOptions);
     await puzzle.generate();
     setState(() {
