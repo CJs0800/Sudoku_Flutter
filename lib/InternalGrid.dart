@@ -9,6 +9,7 @@ class Internalgrid extends StatelessWidget{
     required this.puzzle,
     required this.selectedRow,
     required this.selectedCol,
+    required this.validationCheck,
     required this.onCellTap
   }) : super(key:key);
 
@@ -17,6 +18,7 @@ class Internalgrid extends StatelessWidget{
   final puzzle;
   final selectedRow;
   final selectedCol;
+  final validationCheck;
   final onCellTap;
 
   @override
@@ -51,7 +53,7 @@ class Internalgrid extends StatelessWidget{
           boxColor = Colors.transparent;
         }
         Color textColors;
-        if (isGiven) {
+        if (isGiven || !validationCheck) {
           textColors = Colors.black;
         } else if (cell.getValue() == puzzle?.solvedBoard()?.matrix()?[globalRow][globalCol]?.getValue()){
           textColors = Colors.green;
