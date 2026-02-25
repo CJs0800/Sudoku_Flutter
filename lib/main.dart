@@ -20,7 +20,13 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/game',
       builder: (context, state) {
-        return const Game(title: "Sudoku-Flutter");
+        final data = state.extra as Map?;
+        return Game(
+          title: "Sudoku-Flutter",
+          isWinter: data?["isWinter"],
+          validationCheck: data?["validationCheck"],
+          isErrorCounter: data?["isErrorCounter"],
+        );
       },
     ),
     GoRoute(

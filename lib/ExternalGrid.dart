@@ -8,6 +8,7 @@ class Externalgrid extends StatelessWidget {
     required this.puzzle,
     required this.selectedRow,
     required this.selectedCol,
+    required this.validationCheck,
     required this.onCellTap
   }) : super(key: key);
 
@@ -15,6 +16,7 @@ class Externalgrid extends StatelessWidget {
   final puzzle;
   final selectedRow;
   final selectedCol;
+  final validationCheck;
   final onCellTap;
 
   @override
@@ -34,6 +36,7 @@ class Externalgrid extends StatelessWidget {
               puzzle: puzzle,
               selectedRow: selectedRow,
               selectedCol: selectedCol,
+              validationCheck: validationCheck,
               onCellTap: onCellTap
             ),
           );

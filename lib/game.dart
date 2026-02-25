@@ -1,3 +1,4 @@
+import 'dart:developer' as console;
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,12 @@ import 'package:sudoku_starter/ButtonGrid.dart';
 
 
 class Game extends StatefulWidget {
-  const Game({Key? key, required this.title}) : super(key: key);
+  const Game({Key? key, required this.title, required this.isWinter, required this.validationCheck, required this.isErrorCounter}) : super(key: key);
 
   final String title;
+  final bool isWinter;
+  final bool validationCheck;
+  final bool isErrorCounter;
 
   @override
   State<Game> createState() => _GameState();
@@ -18,6 +22,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   int _counter = 0;
+  int errorCounter = 0;
   Puzzle? puzzle;
   int? selectedRow;
   int? selectedCol;
@@ -31,11 +36,23 @@ class _GameState extends State<Game> {
   @override
   void initState(){
     super.initState();
-    generatePuzzle();
+    if(widget.isWinter){
+      generatePuzzleWinter();
+    } else {
+      generatePuzzle();
+    }
   }
 
   Future<void> generatePuzzle() async{
     PuzzleOptions puzzleOptions = new PuzzleOptions();
+    Puzzle puzzle = new Puzzle(puzzleOptions);
+    await puzzle.generate();
+    setState(() {
+      this.puzzle = puzzle;
+    });
+  }
+  Future<void> generatePuzzleWinter() async{
+    PuzzleOptions puzzleOptions = new PuzzleOptions(patternName: "winter");
     Puzzle puzzle = new Puzzle(puzzleOptions);
     await puzzle.generate();
     setState(() {
@@ -105,12 +122,23 @@ class _GameState extends State<Game> {
             SizedBox(height: boxSize/2),
             SizedBox(
               width: boxSize*3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(widget.isErrorCounter?errorCounter.toString()+" erreurs.":'')
+                ],
+              ),
+            ),
+            SizedBox(
+              width: boxSize*3,
               height: boxSize*3,
-              child: Externalgrid(
+              child: puzzle == null ? const Center(child: CircularProgressIndicator()) :
+              Externalgrid(
                 boxSize: boxSize,
                 puzzle: puzzle,
                 selectedRow: selectedRow,
                 selectedCol: selectedCol,
+                validationCheck: widget.validationCheck,
                 onCellTap: (row, col) {
                   setState(() {
                     selectedRow = row;
@@ -136,6 +164,9 @@ class _GameState extends State<Game> {
                     puzzle?.board()!.cellAt(position).setValue(buttonNumber);
                     if (isSudokuComplete()){
                       context.go("/victory");
+                    }
+                    if (puzzle?.solvedBoard()?.cellAt(position).getValue() != buttonNumber && buttonNumber!=0){
+                      errorCounter+=1;
                     }
                   });
                 }),
