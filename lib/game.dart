@@ -78,7 +78,7 @@ class _GameState extends State<Game> {
     var height = MediaQuery.of(context).size.height / 2;
     var width = MediaQuery.of(context).size.width;
     var maxSize = height > width ? width : height;
-    var boxSize = (maxSize / 3).ceil().toDouble();
+    var boxSize = (maxSize / 3).ceil().toDouble()/8*7;
 
     return Scaffold(
       appBar: AppBar(
