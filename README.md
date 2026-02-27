@@ -173,7 +173,7 @@ Full-Stack & Cross-Platform Développeur
 
 Passionné par la création d'applications réactives et évolutives utilisant les technologies modernes.
 
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-yellow?logo=github)](https://github.com/CJs0800)
+[![GitHub](https://img.shields.io/badge/GitHub-CJs0800-yellow?logo=github)](https://github.com/CJs0800)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Corentin_JERE-0A66C2?logo=linkedin&logoColor=blue)](https://linkedin.com/in/corentin-jere/)
 [![Email](https://img.shields.io/badge/Email-corentinjere@gmail.com-red?logo=gmail&logoColor=white)](mailto:corentinjere@gmail.com)
 
